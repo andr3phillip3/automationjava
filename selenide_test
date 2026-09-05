@@ -1,1 +1,33 @@
+package br.com.rocketskills.petlov.automationjava;
+
+
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+
+
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Condition.*;
+
+
+class Cadastro {
+
+	@Test
+	@DisplayName("Deve deve poder cadastrar um ponto de doação")
+	void createPoint() {
+		open("https://petlov.vercel.app/signup");
+		$("h1").shouldHave(text("Cadastro de ponto de doação"));
+        $("input[placeholder='Nome do ponto de doação']").setValue("zeze house");
+		$("input[name = email]").setValue("zeze@pederasta.com");
+		$("input[name = cep]").setValue("56304280");
+		$("input[value = 'Buscar CEP']").click();
+		$("input[name = addressNumber]").setValue("24");
+		$("input[name = addressDetails]").setValue("casa do zeze");
+		$(By.xpath("//span[text()=\"Cachorros\"]/..")).click();
+		$(By.className("button-register")).click();
+		$(By.cssSelector("#success-page p")).shouldHave(text("Seu ponto de doação foi adicionado com sucesso. Juntos, podemos criar um mundo onde todos os animais recebam o amor e cuidado que merecem."));
+		closeWebDriver();
+	}
+}
 
